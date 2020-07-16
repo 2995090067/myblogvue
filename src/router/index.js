@@ -1,29 +1,60 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-let About=()=>import('../views/About');
-let Home=()=>import('../views/Home');
-
+// 懶加載
+let BolgDetall = () => import('../views/blogdetall/BlogDetall');
+let BlogEdit = () => import('../views/blogedit/BlogEdit');
+let Blogs = () => import('../views/blogs/Blogs')
+let Login = () => import('../views/login/Login')
+// 展示
+let Element = () => import('../views/element/Element')
+// Vue实例加载element-ui
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
+    // 此處重定向
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: '/blogs'
   },
-  {
-    path: '/about',
-    name: 'About',
 
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  // 添加路由
+  {
+    path: 'blog/add',
+    component: BlogEdit
+  },
+
+  {
+    path: '/blog/:blogId/edit',
+    component: BlogEdit
+
+  },
+
+  {
+    path: '/blog/:blogId',
+    component: BolgDetall
+  },
+
+  {
+    path: '/blogs',
+    component: Blogs
+  },
+
+  {
+    path: '/login',
+    component: Login
+  },
+
+  {
+    path: '/element',
+    component: Element
   }
 ]
-
+// 创建路由对象
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
+  // base: process.env.BASE_URL,
   routes
 })
-
+// 导出
 export default router
